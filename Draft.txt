@@ -1,0 +1,84 @@
+Project Name => Hmoested-Horizon
+Tech stack => React/Node [Typescrtipt]
+
+Entities Relationship Required
+    1. Host [Who add the Properties]
+    2. Properties [to be booked by guests]
+    3. Guest [Users who book properties]
+
+    Host can add multiple properties
+     Host --------> Properties  [One to many]
+
+    One properties should associated by single Host
+     Properties -------> Host [One to many]
+
+    Guest can book multiple properties and properties have multiple booking. But Each booking is linked to single property and single guests
+     Guest ---------> Properties [Many to many]
+
+
+Features should implemented
+
+ 1. Host:
+   -> Authentication: Implement registration and login functionality for hosts, allowing them to create 
+      an account and securely access their profile and properties.
+   -> Profile Management: Allow hosts to manage their profile information, including their name, 
+      location, hosting since date, and other relevant details.
+   -> Property Management: Implement features for hosts to add new properties, update existing property 
+      details, and remove properties from their listing.
+   -> Booking Management: Provide hosts with a view of their property bookings, allowing them to manage
+      and confirm bookings made by guests.
+
+
+ 2. Properties:
+   -> Property Listing: Display a list of properties with key information, such as property name,
+      location, property type, host details, and availability.
+   -> Property Details: Show detailed information about each property, including property description,
+      amenities, pricing, availability calendar, and guest reviews/ratings.
+   -> Property Media: Allow hosts to upload and showcase property photos or videos to attract potential
+      guests.
+   -> Booking Availability: Implement a system to manage the availability of properties and prevent
+      double bookings.
+
+ 3. Guests:
+   -> Authentication: Similar to hosts, provide guest registration and login functionality to create
+      and access their profile.
+   -> Property Search: Enable guests to search for properties based on destination, property name, or
+      host name, providing a convenient way to find suitable accommodations.
+   -> Filtering and Sorting: Implement options for guests to filter properties based on criteria such
+      as location, property type, amenities, price range, and availability. Additionally, allow sorting by different parameters like location, property type, price, or guest ratings.
+   -> Booking Process: Allow guests to view property details, check availability, and make bookings for
+      their desired dates. Provide a confirmation system with booking details and notifications.
+
+
+APIs List according to features
+  1. Hosts APIs
+    -> /api/auth/register - POST request to register a new host.
+    -> /api/auth/login - POST request to authenticate a host and generate a session token.
+    -> /api/hosts/profile - GET request to retrieve the host's profile information.
+    -> /api/hosts/profile - PUT request to update the host's profile information.
+    -> /api/properties - POST request to add a new property.
+    -> /api/properties/:propertyId - PUT request to update an existing property.
+    -> /api/properties/:propertyId - DELETE request to remove a property.
+    -> /api/bookings - GET request to retrieve the bookings associated with a host.
+    -> /api/bookings/:bookingId - PUT request to manage and confirm a booking.
+
+  2. Property APIs
+    -> /api/properties - GET request to retrieve a list of properties with basic information.
+    -> /api/properties/:propertyId - GET request to retrieve detailed information about a specific
+        property.
+    -> /api/properties/search - POST request to search for properties based on various criteria.
+    -> /api/properties/filter - POST request to filter properties based on location, property type,
+       amenities, etc.
+    -> /api/properties/sort - POST request to sort properties based on different parameters.
+
+  3. Guests APIs
+    -> /api/auth/register - POST request to register a new guest.
+    -> /api/auth/login - POST request to authenticate a guest and generate a session token.
+    -> /api/guests/profile - GET request to retrieve the guest's profile information.
+    -> /api/guests/profile - PUT request to update the guest's profile information.
+    -> /api/properties/search - POST request to search for properties based on various criteria.
+    -> /api/properties/filter - POST request to filter properties based on location, property type, 
+       amenities, etc.
+    -> /api/properties/sort - POST request to sort properties based on different parameters.
+    -> /api/bookings - POST request to create a new booking.
+    -> /api/bookings/history - GET request to retrieve the booking history of a guest.
