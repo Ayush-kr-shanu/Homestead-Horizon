@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
+import PropertyModel, { IProperty } from './property.model';
 
 // Interface for Host document
 export interface IHost extends Document {
@@ -18,6 +19,13 @@ const hostSchema: Schema<IHost> = new Schema<IHost>({
   location: { type: String, required: true },
   propertyType: { type: String },
   active: { type: Boolean, default: true },
+});
+
+
+hostSchema.virtual('properties', {
+  ref: 'Property',
+  localField: '_id',
+  foreignField: 'host',
 });
 
 // Create and export the Host model

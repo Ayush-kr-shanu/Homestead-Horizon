@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
+import { IBooking } from './booking.model';
 
 // Interface for Guest document
 export interface IGuest extends Document {
@@ -8,6 +9,7 @@ export interface IGuest extends Document {
   age: number;
   gender: string;
   active: boolean;
+  bookings: IBooking['_id'][];
 }
 
 // Define the Guest schema
@@ -18,6 +20,7 @@ const guestSchema: Schema<IGuest> = new Schema<IGuest>({
   age: { type: Number, required: true },
   gender: { type: String, required: true },
   active: { type: Boolean, default: true },
+  bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
 });
 
 // Create and export the Guest model
