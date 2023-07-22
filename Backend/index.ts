@@ -1,5 +1,7 @@
 import express from 'express'
 import connection from './config/db'
+import hostRoutes from './routes/host'
+import guestRoutes from './routes/guest'
 
 const app=express()
 
@@ -9,7 +11,8 @@ app.get("/", (req,res)=>{
     res.send("Home page")
 })
 
-
+app.use("/host", hostRoutes)
+app.use("/guest", guestRoutes)
 
 
 

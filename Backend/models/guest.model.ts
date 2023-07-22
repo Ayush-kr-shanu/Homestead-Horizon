@@ -6,8 +6,9 @@ export interface IGuest extends Document {
   name: string;
   email: string;
   password: string;
-  age: number;
+  dob: Date;
   gender: string;
+  role?: string;
   active: boolean;
   bookings: IBooking['_id'][];
 }
@@ -17,8 +18,9 @@ const guestSchema: Schema<IGuest> = new Schema<IGuest>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  age: { type: Number, required: true },
+  dob: { type: Date, required: true },
   gender: { type: String, required: true },
+  role: { type: String, default: 'guest'},
   active: { type: Boolean, default: true },
   bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
 });

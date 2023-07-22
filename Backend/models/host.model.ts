@@ -8,7 +8,9 @@ export interface IHost extends Document {
   password: string;
   location: string;
   propertyType?: string;
+  role?: string;
   active: boolean;
+  properties: IProperty['_id'][]
 }
 
 // Define the Host schema
@@ -18,11 +20,13 @@ const hostSchema: Schema<IHost> = new Schema<IHost>({
   password: { type: String, required: true },
   location: { type: String, required: true },
   propertyType: { type: String },
+  role: { type: String, default: 'host'},
   active: { type: Boolean, default: true },
+  properties: [{ type: Schema.Types.ObjectId, ref: 'Property' }],
 });
 
 
-hostSchema.virtual('properties', {
+hostSchema.virtual('propertyList', {
   ref: 'Property',
   localField: '_id',
   foreignField: 'host',
