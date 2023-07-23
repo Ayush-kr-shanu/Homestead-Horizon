@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Heading, Input, Button, Text, Stack, Radio, RadioGroup, FormControl } from '@chakra-ui/react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -41,65 +43,52 @@ const SignupPage: React.FC = () => {
   const minDate = new Date(currentDate.getFullYear() - 100, currentDate.getMonth(), currentDate.getDate());
 
   return (
-    <div>
-      <h2>Signup Page</h2>
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="guest"
-            checked={role === 'guest'}
-            onChange={() => setRole('guest')}
-          />
-          Guest
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="host"
-            checked={role === 'host'}
-            onChange={() => setRole('host')}
-          />
-          Host
-        </label>
-      </div>
-      <form>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        {role === 'guest' && (
-          <>
-            <div>
-              <label>Date of Birth:</label>
+    <Box p={4}>
+      <Heading as="h2" size="lg" mb={4}>
+        Register Here
+      </Heading>
+      <RadioGroup onChange={(value) => setRole(value)} value={role} mb={4}>
+        <Stack direction="row">
+          <Radio value="guest">Guest</Radio>
+          <Radio value="host">Host</Radio>
+        </Stack>
+      </RadioGroup>
+      <Box as="form">
+        <Stack spacing={3}>
+          <FormControl id="name">
+            <Input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </FormControl>
+          <FormControl id="email">
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
+          <FormControl id="password">
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+          <FormControl id="confirmPassword">
+            <Input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </FormControl>
+          {role === 'guest' && (
+            <FormControl id="dateOfBirth">
               <DatePicker
                 selected={dateOfBirth}
                 onChange={(date) => setDateOfBirth(date)}
@@ -107,18 +96,25 @@ const SignupPage: React.FC = () => {
                 showYearDropdown
                 scrollableYearDropdown
                 yearDropdownItemNumber={80}
-                minDate={minDate} // Minimum date is 100 years before the current date
-                maxDate={maxDate} // Maximum date is 15 years before the current date
+                minDate={minDate}
+                maxDate={maxDate}
+                placeholderText="Date of Birth"
+                isClearable
               />
-            </div>
-          </>
-        )}
-        {passwordMatchError && <p>{passwordMatchError}</p>}
-        <button type="button" onClick={handleSignup}>
-          Signup
-        </button>
-      </form>
-    </div>
+            </FormControl>
+          )}
+          {passwordMatchError && (
+            <Text color="red">{passwordMatchError}</Text>
+          )}
+          <Button colorScheme="teal" onClick={handleSignup}>
+            Signup
+          </Button>
+        </Stack>
+      </Box>
+      <Text mt={4}>
+        Already have an account? <Link to="/login">Login</Link>
+      </Text>
+    </Box>
   );
 };
 
