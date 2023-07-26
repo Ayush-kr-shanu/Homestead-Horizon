@@ -5,7 +5,7 @@ require('dotenv').config();
 interface TokenPayload {
     userID: string;
     role : string;
-    active : boolean;
+    status : boolean;
     email : string;
 }
 
@@ -17,11 +17,12 @@ const AuthMiddleware=async(req:Request, res:Response, next:NextFunction)=>{
            return res.status(401).send({"msg": "login again"})
         }
         const decodeToken=jwt.verify(token, process.env.JWT_SECRET_KEY) as TokenPayload
+        // console.log(decodeToken);
 
-        const {userID, email, active, role}=decodeToken
-        if(active){
+        const {userID, email, status, role}=decodeToken
+        if(status){
             req.body.userID=userID
-            req.body.active=active
+            req.body.status=status
             req.body.email=email
             req.body.role=role
             next()

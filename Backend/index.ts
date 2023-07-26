@@ -2,6 +2,7 @@ import express from 'express'
 import connection from './config/db'
 import hostRoutes from './routes/host'
 import guestRoutes from './routes/guest'
+import propRoutes from './routes/property'
 
 const app=express()
 
@@ -13,6 +14,7 @@ app.get("/", (req,res)=>{
 
 app.use("/host", hostRoutes)
 app.use("/guest", guestRoutes)
+app.use(propRoutes)
 
 
 
